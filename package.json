@@ -1,0 +1,26 @@
+{
+  "name": "henchman",
+  "version": "0.1.0",
+  "description": "JavaScript component framework",
+  "main": "main.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HyeonuPark/henchman.git"
+  },
+  "keywords": [
+    "component",
+    "henchman"
+  ],
+  "author": "HyeonuPark",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HyeonuPark/henchman/issues"
+  },
+  "homepage": "https://github.com/HyeonuPark/henchman#readme",
+  "dependencies": {
+    "wolfy87-eventemitter": "^4.2.11"
+  }
+}
