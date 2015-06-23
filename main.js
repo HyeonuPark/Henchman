@@ -20,7 +20,7 @@ Henchman.createElement = function createElement(component, properties, boss) {
 
     var children = component.call(element);
     for (var childName in children) {
-        element._children[childName] = Henchman.createElement(children[childName].component, children[childName].properties, elementHenchmenPipe[childName].bottom);
+        element._children[childName] = Henchman.createElement(children[childName]._component, children[childName], elementHenchmenPipe[childName].bottom);
     }
     return element;
 };
