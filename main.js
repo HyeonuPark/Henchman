@@ -42,7 +42,7 @@ Henchman.list = function(component, parent) {
             return parent.send('_proxyError', {reason:'TargetNotSpecified'}, order, -1);
         }
         return pipes[order._target].send(order._topic, order, order, -1);
-    });
+    }).catch(console.log.bind(console));
 
     parent.on('_add').then(function(order) {
         var pipe = new Pipe();
@@ -56,7 +56,7 @@ Henchman.list = function(component, parent) {
             return parent.send(report._topic, report, report, -1);
         });
         return parent.send('_addDone', null, order, -1);
-    });
+    }).catch(console.log.bind(console));
 
     parent.on('_remove').then(function(order) {
         if (!pipes[order.name]) {

@@ -11,7 +11,7 @@ module.exports = function() {
         self.child('textInput').send('setText', {text : ''}, report);
     }).then(function(report) {
         self.boss.send('sendMessage', {text : this.message}, report);
-    });
+    }).catch(console.log.bind(console));
 
     var id = self.props().id + '.input';
     return {

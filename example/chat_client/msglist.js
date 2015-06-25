@@ -9,5 +9,5 @@ module.exports = function() {
         pannel.appendChild(span);
         pannel.appendChild(document.createElement('br'));
         return self.parent.send('addMessageDone', null, report, -1);
-    });
+    }).catch(console.log.bind(console));
 };
