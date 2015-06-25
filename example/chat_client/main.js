@@ -10,7 +10,7 @@ window.onload = function() {
             ws.send(JSON.stringify(report));
         });
         ws.onmessage = function(message) {
-            var order = JSON.stringify(message);
+            var order = JSON.parse(message);
             pipe.top.send(order._topic, order, order);
         };
 
