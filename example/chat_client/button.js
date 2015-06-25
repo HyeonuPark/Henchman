@@ -3,7 +3,7 @@ module.exports = function() {
 
     var button = document.getElementById(self.props().id + '.button');
     button.addEventListener('click', function() {
-        self.boss.send('buttonClick', {});
+        self.parent.send('buttonClick', null, null, -1);
     });
 
     return {};

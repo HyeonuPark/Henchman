@@ -3,11 +3,11 @@ module.exports = function() {
 
     var socket = new WebSocket(self.props().address);
     socket.onmessage = function(message) {
-        self.boss.send('message', {message : message});
+        self.parent.send('message', {message : message}, null, -1);
     };
 
-    self.boss.on('send').then(function(order) {
+    self.parent.on('send').then(function(order) {
         socket.send(order.message);
-        self.boss.send('sendDone', {}, order);
+        self.parent.send('sendDone', null, order, -1);
     });
 }

@@ -1,6 +1,6 @@
 {
   "name": "henchman",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "JavaScript component framework",
   "main": "main.js",
   "scripts": {

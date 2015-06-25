@@ -34,46 +34,49 @@ Henchman.list = function(component, parent) {
     var children = {};
     var pipes = {};
 
-    parent.on().then(function(e) {
-        if (e._event[0] === '_') {
-            return parent.send('_proxyError', {reason:'StartWithEscapeKeyword'}, e, -1);
+    parent.on().then(function(order) {
+        if (order._topic[0] === '_') {
+            return parent.send('_proxyError', {reason:'TopicStartWithEscapeKeyword'}, order, -1);
         }
-        if (!e._target) {
-            return parent.send('_proxyError', {reason:'TargetNotSpecified'}, e, -1);
+        if (!order._target) {
+            return parent.send('_proxyError', {reason:'TargetNotSpecified'}, order, -1);
         }
-        return pipes[e._target].send(e._event, e, e, -1);
+        return pipes[order._target].send(order._topic, order, order, -1);
     });
 
-    parent.on('_add').then(function(e) {
+    parent.on('_add').then(function(order) {
         var pipe = new Pipe();
-        pipes[e.name] = pipe.top;
-        children[e.name] = Henchman(component, e.props, pipe.bottom);
-        pipes[e.name].on().then(function(eChild) {
-            eChild._source = e.name;
-            return parent.send(eChild._event, eChild, eChild, -1);
+        pipes[order.name] = pipe.top;
+        children[order.name] = Henchman(component, order.props, pipe.bottom);
+        pipes[order.name].on().then(function(report) {
+            if (report._topic[0] === '_') {
+                return pipes[order.name].send('_proxyError', {reason:'TopicStartWithEscapeKeyword'}, report, -1);
+            }
+            report._source = order.name;
+            return parent.send(report._topic, report, report, -1);
         });
-        return parent.send('_addDone', null, e, -1);
+        return parent.send('_addDone', null, order, -1);
     });
 
-    parent.on('_remove').then(function(e) {
-        if (!pipes[e.name]) {
-            delete children[e.name];
-            parent.send('_removeError', {reason:'NotExist'}, e, -1);
+    parent.on('_remove').then(function(order) {
+        if (!pipes[order.name]) {
+            delete children[order.name];
+            parent.send('_removeError', {reason:'NotExist'}, order, -1);
             throw new Error('Removing child is requested for unexisted name');
         }
-        this.name = e.name;
-        return pipes[e.name].send('_kill', null, e);
-    }).then(function(e) {
-        if (e._event === '_killError') {
-            parent.send('_removeError', {reason:'Failed'}, e, -1);
+        this.name = order.name;
+        return pipes[order.name].send('_kill', null, order);
+    }).then(function(report) {
+        if (report._topic === '_killError') {
+            parent.send('_removeError', {reason:'Failed'}, report, -1);
             throw new Error('Removing child failed');
         }
         delete pipes[this.name];
         delete children[this.name];
-        return parent.send('_removeDone', null, e, -1);
-    }).catch(function(e) {
-        console.log('Error - ' + e.message);
-        console.log(e.stack);
+        return parent.send('_removeDone', null, report, -1);
+    }).catch(function(err) {
+        console.log('Error - ' + err.message);
+        console.log(err.stack);
     });
 
     return children;

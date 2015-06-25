@@ -15,13 +15,17 @@ module.exports = function() {
 
     var id = self.props().id + '.input';
     return {
-        sendButton : {
-            _component : button,
-            id : id
-        },
-        textInput : {
-            _component : textbox,
-            id : id
-        }
+        sendButton : [
+            button,
+            {
+                id : id
+            }
+        ],
+        textInput : [
+            textbox,
+            {
+                id : id
+            }
+        ]
     };
 };

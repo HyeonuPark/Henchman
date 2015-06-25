@@ -3,16 +3,16 @@ module.exports = function() {
 
     var input = document.getElementById(this.props().id +'.textbox');
     input.addEventListener('change', function onChange() {
-        self.boss.send('textChange', {text : input.value});
+        self.parent.send('textChange', {text : input.value}, null, -1);
     });
 
-    self.boss.on('setText').then(function(order) {
+    self.parent.on('setText').then(function(order) {
         input.value = order.text;
-        self.boss.send('setTextDone', {}, order);
+        self.parent.send('setTextDone', null, order, -1);
     });
 
-    self.boss.on('getText').then(function(order) {
-        self.boss.send('text', {text : input.value}, order);
+    self.parent.on('getText').then(function(order) {
+        self.parent.send('text', {text : input.value}, order, -1);
     });
 
     return {};
