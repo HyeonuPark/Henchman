@@ -1,6 +1,6 @@
 {
   "name": "henchman",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "JavaScript component framework",
   "main": "main.js",
   "scripts": {
@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/HyeonuPark/henchman#readme",
   "dependencies": {
-    "wolfy87-eventemitter": "^4.2.11"
+    "msgpipe": "^1.0.1"
   }
 }
