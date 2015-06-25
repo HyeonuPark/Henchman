@@ -1,2 +1,2 @@
-# henchman
-Javascript component framework
+# Henchman
+JavaScript component framework
